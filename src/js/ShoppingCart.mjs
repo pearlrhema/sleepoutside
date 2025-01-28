@@ -17,6 +17,14 @@ function cartItemTemplate(item){
         `
 }
 
+function calculateTotalPrice(cartItems, selector) {
+    if (cartItems !== null) {
+        const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+        document.querySelector(selector).innerHTML = htmlItems.join('');
+    }
+    return cartItems.reduce((total, item) => total + item.FinalPrice, 0);
+}
+
 
 export default class ShoppingCart{
     constructor(key, parentSelector){
@@ -26,7 +34,21 @@ export default class ShoppingCart{
 
     renderCartContents(){
       const cartItems = getLocalStorage(this.key);
-      const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-      document.querySelector(this.parentSelector).innerHTML = htmlItems.join(""); 
+        if (cartItems !== null) {
+            const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+            document.querySelector(this.parentSelector).innerHTML = htmlItems.join('');
+        } 
+
+        const cartFooter = document.querySelector('.cart-footer');
+        // To show the footer, remove the 'hide' class
+        cartFooter.classList.remove('hide');
+        
+        
+        // Calculate the total price
+        const totalPrice = calculateTotalPrice(cartItems, this.parentSelector);
+        
+        // Update the cart total
+        const cartTotalElement = document.querySelector('.cart-total');
+        cartTotalElement.textContent = `Total: $${totalPrice.toFixed(2)}`;  
     }
 }
