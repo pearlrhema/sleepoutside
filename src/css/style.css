@@ -309,7 +309,8 @@ button {
   align-items: center;
   padding: 0 0.5em;
 }
-.list-footer > a, #checkoutSubmit {
+.list-footer > a,
+#checkoutSubmit {
   /* display: block; */
   padding: 0.3em 0.5em;
   background-color: var(--primary-color);
@@ -320,7 +321,6 @@ button {
 .list-footer a:visited {
   color: var(--dark-grey);
 }
-
 
 /* checkout styles */
 .checkout-form {
@@ -347,7 +347,6 @@ button {
   width: 25%;
   font-size: 1em;
 }
-
 
 footer {
   font-size: var(--small-font);

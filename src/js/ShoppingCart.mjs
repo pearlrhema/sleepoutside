@@ -52,13 +52,13 @@ function cartItemTemplate(item, index) {
     </li>`;
 }
 
-// function calculateTotalPrice(cartItems, selector) {
-//     if (cartItems !== null) {
-//         const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-//         document.querySelector(selector).innerHTML = htmlItems.join('');
-//     }
-//     return cartItems.reduce((total, item) => total + item.FinalPrice, 0);
-// }
+function calculateTotalPrice(cartItems, selector) {
+    if (cartItems !== null) {
+        const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+        document.querySelector(selector).innerHTML = htmlItems.join('');
+    }
+    return cartItems.reduce((total, item) => total + item.FinalPrice, 0);
+}
 
 export default class ShoppingCart {
     constructor(key, parentSelector) {
