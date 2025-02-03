@@ -45,26 +45,37 @@ function cartItemTemplate(item, index) {
         </a>
         <div class="cart-card__details">
             <h2 class="card__name">${item.Name}</h2>
-            <p class="cart-card__color">${item.Colors?.[0]?.ColorName || "No color specified"}</p>
+            <p class="cart-card__color">${item.Colors[0].ColorName}</p>
             <p class="cart-card__quantity">qty: 1</p>
             <p class="cart-card__price">$${item.FinalPrice}</p>
         </div>
     </li>`;
 }
 
-function calculateTotalPrice(cartItems, selector) {
-    if (cartItems !== null) {
-        const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-        document.querySelector(selector).innerHTML = htmlItems.join('');
-    }
-    return cartItems.reduce((total, item) => total + item.FinalPrice, 0);
-}
+// function calculateTotalPrice(cartItems, selector) {
+//     if (cartItems !== null) {
+//         const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+//         document.querySelector(selector).innerHTML = htmlItems.join('');
+//     }
+//     return cartItems.reduce((total, item) => total + item.FinalPrice, 0);
+// }
 
 export default class ShoppingCart {
     constructor(key, parentSelector) {
         this.key = key;
         this.parentSelector = parentSelector;
     }
+
+    async init() {
+        const list = getLocalStorage(this.key);
+        this.calculateListTotal(list);
+        this.renderCartContents(list);
+    }
+
+    calculateListTotal(list) {
+        const amounts = list.map((item) => item.FinalPrice);
+        this.total = amounts.reduce((sum, item) => sum + item);
+    }    
 
     renderCartContents() {
         const cartItems = getLocalStorage(this.key) || [];

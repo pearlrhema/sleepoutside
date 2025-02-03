@@ -59,16 +59,16 @@ export function renderWithTemplate(
 }
 
 // yes no maybe I don't know
-export function convertToText(response) {
-  return response.text();
-}
+// export function convertToText(response) {
+//   return response.text();
+// }
 
-export async function loadTemplate(path){
-  const html = await fetch(path).then(convertToText);
-  const template = document.createElement("template");
-  template.innerHTML =html;
-  return template;
-}
+// export async function loadTemplate(path){
+//   const html = await fetch(path).then(convertToText);
+//   const template = document.createElement("template");
+//   template.innerHTML =html;
+//   return template;
+// }
 
 
 async function loadTemplate(path) {
