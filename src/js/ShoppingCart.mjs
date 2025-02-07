@@ -52,13 +52,23 @@ function cartItemTemplate(item, index) {
     </li>`;
 }
 
-function calculateTotalPrice(cartItems, selector) {
-    if (cartItems !== null) {
-        const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-        document.querySelector(selector).innerHTML = htmlItems.join('');
-    }
+// function calculateTotalPrice(cartItems, selector) {
+//     if (cartItems !== null) {
+//         const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+//         document.querySelector(selector).innerHTML = htmlItems.join('');
+//     }
+//     return cartItems.reduce((total, item) => total + item.FinalPrice, 0);
+// }
+
+function calculateTotalPrice(cartItems) {
     return cartItems.reduce((total, item) => total + item.FinalPrice, 0);
 }
+
+function renderCartItems(cartItems, selector) {
+    const htmlItems = cartItems.map((item, index) => cartItemTemplate(item, index));
+    document.querySelector(selector).innerHTML = htmlItems.join('');
+}
+
 
 export default class ShoppingCart{
     constructor(key, parentSelector){
@@ -73,15 +83,15 @@ export default class ShoppingCart{
             return;
         }
 
-        const htmlItems = cartItems.map((item, index) => cartItemTemplate(item, index));
-        const cartContainer = document.querySelector(this.parentSelector);
-        cartContainer.innerHTML = htmlItems.join("");
+        renderCartItems(cartItems, this.parentSelector);
+
         
         const cartFooter = document.querySelector('.cart-footer');
         // To show the footer, remove the 'hide' class
         cartFooter.classList.remove('hide');
         
         // Calculate the total price
+        // const totalPrice = calculateTotalPrice(cartItems);
         const totalPrice = calculateTotalPrice(cartItems, this.parentSelector);
         
         // Update the cart total
@@ -89,6 +99,7 @@ export default class ShoppingCart{
         cartTotalElement.textContent = `Total: $${totalPrice.toFixed(2)}`;
 
         this.attachRemoveItemListeners(cartItems);  
+        this.updateCartIcon(cartItems);
 
     }
 
@@ -106,9 +117,26 @@ export default class ShoppingCart{
         });
     }
 
+    // displayEmptyCartMessage() {
+    //     const cartContainer = document.querySelector(this.parentSelector);
+    //     cartContainer.innerHTML = `<p>Your cart is empty.</p>`;
+    // }
+
     displayEmptyCartMessage() {
         const cartContainer = document.querySelector(this.parentSelector);
         cartContainer.innerHTML = `<p>Your cart is empty.</p>`;
+        
+        const cartFooter = document.querySelector('.cart-footer');
+        cartFooter.classList.add('hide');  // Hide the footer when the cart is empty
     }
+
+    // update cart icon inside the class
+    updateCartIcon(cartItems) {
+        const cartCountElement = document.querySelector('.cart-count');
+        if (cartCountElement) {
+            cartCountElement.textContent = cartItems.length > 0 ? cartItems.length : '';
+        }
+    }
+    
 }
 //------------using remove item button-------------
