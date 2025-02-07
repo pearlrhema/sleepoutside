@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage, alertMessage, removeAllAlerts } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage,alertMessage,removeAllAlerts } from "./utils.mjs";
 import ExternalServices from "./ExternalServices.mjs";
 
 const services = new ExternalServices();
@@ -26,8 +26,8 @@ function packageItems(items) {
   return simplifiedItems;
 }
 
-export default class CheckoutProcess {
-  constructor(key, outputSelector) {
+export default class CheckoutProcess{
+  constructor(key, outputSelector){
     this.key = key;
     this.outputSelector = outputSelector;
     this.list = [];
@@ -50,18 +50,18 @@ export default class CheckoutProcess {
     this.itemTotal = amounts.reduce((sum, item) => sum + item);
     summaryElement.innerText = "$" + this.itemTotal;
   }
-
+  
   calculateOrdertotal() {
-    this.shipping = 10 + (this.list.length - 1) * 2;
-    this.tax = (this.itemTotal * 0.06).toFixed(2);
-    this.orderTotal = (
-      parseFloat(this.itemTotal) +
-      parseFloat(this.shipping) +
-      parseFloat(this.tax)
-    ).toFixed(2);
-    this.displayOrderTotals();
+      this.shipping = 10 + (this.list.length - 1) * 2;
+      this.tax = (this.itemTotal * 0.06).toFixed(2);
+      this.orderTotal = (
+        parseFloat(this.itemTotal) +
+        parseFloat(this.shipping) +
+        parseFloat(this.tax)
+      ).toFixed(2);
+      this.displayOrderTotals();
   }
-
+  
   displayOrderTotals() {
     const shipping = document.querySelector(this.outputSelector + " #shipping");
     const tax = document.querySelector(this.outputSelector + " #tax");

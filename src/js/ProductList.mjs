@@ -23,8 +23,8 @@ export default class  ProductList {
     async init() {
         // our dataSource will return a Promise...so we can use await to resolve it.
         const list = await this.dataSource.getData(this.category);
-        let limitedList = this.filterList(list);
-        this.renderList(limitedList);
+        //let limitedList = this.filterList(list);
+        this.renderList(list);
         document.querySelector(".title").innerHTML = this.category;
     }
 
@@ -32,13 +32,13 @@ export default class  ProductList {
         renderListWithTemplate(productCardTemplate, this.listElement, list);
     }
 
-    filterList(list){
-      let limitedList = [];
-      list.forEach(element => {
-        if (element.Id != "989CG" && element.Id != "880RT"){
-          limitedList.push(element)
-        };  
-      });
-      return limitedList;
-    }
+    // filterList(list){
+    //   let limitedList = [];
+    //   list.forEach(element => {
+    //     if (element.Id != "989CG" && element.Id != "880RT"){
+    //       limitedList.push(element)
+    //     };  
+    //   });
+    //   return limitedList;
+    // }
 }
