@@ -67,41 +67,48 @@ export default class ShoppingCart {
     }
 
     async init() {
-    const list = getLocalStorage(this.key);
-    this.calculateListTotal(list);
-    this.renderCartContents(list);
+        const list = getLocalStorage(this.key);
+        this.calculateListTotal(list);
+        this.renderCartContents(list);
     }
 
     calculateListTotal(list) {
         const amounts = list.map((item) => item.FinalPrice);
         this.total = amounts.reduce((sum, item) => sum + item);
-    }    
+    }
 
+
+    js
+    Copy
+    Edit
     renderCartContents() {
-        const cartItems = getLocalStorage(this.key);  //|| []
+        const cartItems = getLocalStorage(this.key) || [];
+
         if (cartItems.length === 0) {
             this.displayEmptyCartMessage();
-            //return;   
+            return;
         }
 
         const htmlItems = cartItems.map((item, index) => cartItemTemplate(item, index));
         const cartContainer = document.querySelector(this.parentSelector);
         cartContainer.innerHTML = htmlItems.join("");
 
+        // Show the cart footer if it exists
         const cartFooter = document.querySelector(".cart-footer");
-        // To show the footer, remove the 'hide' class
-        cartFooter.classList.remove("hide");
+        if (cartFooter) {
+            cartFooter.classList.remove("hide");
+        }
 
-        // Calculate the total price
-        // const totalPrice = calculateTotalPrice(cartItems);
+        // Calculate and update the total price
         const totalPrice = calculateTotalPrice(cartItems, this.parentSelector);
 
-        // Update the cart total
         const cartTotalElement = document.querySelector(".list-total");
-        cartTotalElement.textContent = `Total: $${totalPrice.toFixed(2)}`;
+        if (cartTotalElement) {
+            cartTotalElement.textContent = `Total: $${totalPrice.toFixed(2)}`;
+        }
 
         this.attachRemoveItemListeners(cartItems);
-
+        this.updateCartIcon(cartItems);
     }
 
     attachRemoveItemListeners(cartItems) {
@@ -126,7 +133,7 @@ export default class ShoppingCart {
     displayEmptyCartMessage() {
         const cartContainer = document.querySelector(this.parentSelector);
         cartContainer.innerHTML = `<p>Your cart is empty.</p>`;
-        
+
         const cartFooter = document.querySelector('.cart-footer');
         cartFooter.classList.add('hide');  // Hide the footer when the cart is empty
     }
@@ -138,6 +145,6 @@ export default class ShoppingCart {
             cartCountElement.textContent = cartItems.length > 0 ? cartItems.length : '';
         }
     }
-    
+
 }
 //------------using remove item button-------------
