@@ -8,18 +8,18 @@
 
 // update the cart count
 import { loadHeaderFooter } from "./utils.mjs";
-import ShoppingCart from "./ShoppingCart.mjs";
+// import ShoppingCart from "./ShoppingCart.mjs"; THIS IS WHERE I COMMENTED OUT
 
 loadHeaderFooter();
 
-const cart = new ShoppingCart("so-cart", ".product-list");
-cart.init();
-if (cart.total > 0) {
-  // show our checkout button and total if there are items in the cart.
-  // document.querySelector(".list-footer ").classList.remove("hide");
-  document.querySelector(".list-footer hide").classList.remove("hide");
+// const cart = new ShoppingCart("so-cart", ".product-list");
+// cart.init();
+// if (cart.total > 0) {
+//   // show our checkout button and total if there are items in the cart.
+//   // document.querySelector(".list-footer ").classList.remove("hide");
+//   document.querySelector(".list-footer hide").classList.remove("hide"); I ALSO COMMENTED OUT THIS LINES
 
-}
+// }
 
 // Function to update cart count in the header
 function updateCartCount() {
