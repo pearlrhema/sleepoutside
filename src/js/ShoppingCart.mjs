@@ -78,10 +78,6 @@ export default class ShoppingCart {
         return this.total;
     }
 
-
-    js
-    Copy
-    Edit
     renderCartContents() {
         const cartItems = getLocalStorage(this.key) || [];
 
@@ -129,11 +125,6 @@ export default class ShoppingCart {
     displayEmptyCartMessage() {
         const cartContainer = document.querySelector(this.parentSelector);
         cartContainer.innerHTML = `<p>Your cart is empty.</p>`;
-    }
-
-    displayEmptyCartMessage() {
-        const cartContainer = document.querySelector(this.parentSelector);
-        cartContainer.innerHTML = `<p>Your cart is empty.</p>`;
 
         const cartFooter = document.querySelector('.cart-footer');
         cartFooter.classList.add('hide');  // Hide the footer when the cart is empty
@@ -142,10 +133,20 @@ export default class ShoppingCart {
     // update cart icon inside the class
     updateCartIcon(cartItems) {
         const cartCountElement = document.querySelector('.cart-count');
+        const cartIcon = document.querySelector('.cart svg'); // Target the cart icon
+    
         if (cartCountElement) {
             cartCountElement.textContent = cartItems.length > 0 ? cartItems.length : '';
         }
+    
+        if (cartIcon) {
+            cartIcon.classList.add('cart-animate'); // Add animation class
+            setTimeout(() => {
+                cartIcon.classList.remove('cart-animate'); // Remove it after animation ends
+            }, 300);
+        }
     }
+    
 
 }
 //------------using remove item button-------------
