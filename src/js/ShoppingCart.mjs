@@ -134,11 +134,11 @@ export default class ShoppingCart {
     updateCartIcon(cartItems) {
         const cartCountElement = document.querySelector('.cart-count');
         const cartIcon = document.querySelector('.cart svg'); // Target the cart icon
-    
+
         if (cartCountElement) {
             cartCountElement.textContent = cartItems.length > 0 ? cartItems.length : '';
         }
-    
+
         if (cartIcon) {
             cartIcon.classList.add('cart-animate'); // Add animation class
             setTimeout(() => {
@@ -146,7 +146,7 @@ export default class ShoppingCart {
             }, 300);
         }
     }
-    
+
 
 }
 //------------using remove item button-------------
